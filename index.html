@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html ng-app="preflight">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>preflight DESI Telephone Labels job</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        
+
+        <link href="css/bootstrap.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/main.css">
+
+    </head>
+    <body ng-controller="preflightCtrl">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <form name="jobNumberInput" ng-submit="submitUserName()">
+                        <input type="text" name="userName" class="input-lg form-control" placeholder="yer name here" ng-model="model.userName" ng-if="!model.userNameEntered" ng-blur="submitUserName()" focus="model.userNameFocus">
+                    </form>
+                    
+                    <div ng-if="model.userNameEntered"><span class="light big cursor user-name" ng-click="editUserName()" ng-bind="model.userName"></span></div>
+                </div>
+                <div class="col-sm-8">
+                    <form name="jobNumberInput" ng-submit="fetchJob(jobNumberInput.$valid)">
+                        <div class="input-group" 
+                        ng-class="{'has-error': jobNumberInput.jobNumber.$error.pattern}">
+                            <input type="text" name="jobNumber" class="form-control input-lg job-number" 
+                            ng-model="model.jobNumber" ng-pattern="/\b\d{5}\b/" 
+                            required placeholder="Enter Job Number"
+                            focus="model.jobNumberFocus">
+                            <span class="input-group-btn">
+                                <button class="btn btn-info btn-lg" type="button"
+                                ng-disabled="jobNumberInput.jobNumber.$error.pattern"
+                                ng-click="fetchJob(jobNumberInput.$valid)">Go!</button>
+                            </span>
+                        </div>
+                        <div class="light medium print-only">preflight receipt</div>
+                    </form>
+
+                    <div class="panel panel-default status-headline">Status: <span ng-bind="model.headline"></span></div>
+                    <div class="rush-flag" ng-show="model.isRush"><span class="glyphicon glyphicon-warning-sign"></span>RUSH<span class="glyphicon glyphicon-warning-sign"></span></div>
+                    
+                    <ul class="list-unstyled" ng-if="model.msgList.length > 0">
+                        <li ng-repeat="msg in model.msgList track by $index" ng-class="['panel', 'panel-' + msg.type]" ng-if="msg">
+                            <div class="panel-heading">
+                                <span class="glyphicon glyphicon-remove pull-right" ng-click="closePanel($index)"></span>
+                                <p ng-bind="msg.msg"></p>
+                                
+                            </div>
+                            <div class="panel-body" ng-if="msg.footnote">
+                                <ul class="list-unstyled">
+                                    <li ng-repeat="note in msg.footnote">
+                                        <span ng-bind="note"></span>
+                                    </li>
+                                </ul>
+                               <!--  <p ng-bind="msg.footnote"></p> -->
+                               <!-- TODO add a print receipt button and a nice print style for checklist -->
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        
+        
+        
+        <!--<script src="js/vendor/angular.js"></script> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+        <script src="js/vendor/angular-cookies.js"></script>
+        <script src="js/vendor/angular-resource.js"></script>
+        <script src="js/vendor/ui-bootstrap-tpls-0.9.0.js"></script>
+        <script src="js/partnumber-list.js"></script>
+        <script src="js/preflight-task-list.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>

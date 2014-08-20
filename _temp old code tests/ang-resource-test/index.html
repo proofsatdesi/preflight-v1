@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" ng-app="jsonpTester">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+</head>
+<body ng-controller="mainCtrl">
+	<input type="text" ng-model="model.jobNumber" placeholder="job number">
+	<button ng-click="model.reqJsonp()">reqJsonp for {{model.jobNumber}}</button>
+	<textarea name="" id="" cols="30" rows="10" ng-bind="model.textarea"></textarea>
+	<script src="js/vendor/angular.js"></script>
+	<script src="js/vendor/angular-resource.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>
+
+<!-- 
+	enter job number
+	tool iterates over each run and calculates the how many sheets should be printed
+	and lets you know the corresponding number of labels
+	needs a list of die numbers, each of them pointing to a relevant "oversConfig" object
+		that specifies how many up, overs rate, minimum, etc.
+	var standardOvers = {someProp: .5, otherProp: 50};
+	var altOvers = {someProp: .05, otherProp: 150};
+	var diesAndOverages = {
+		"5423": standardOvers;
+		"9594": standardOvers;
+		"6666": altOvers;
+	};
+	function that receives an Overages configuration object and returns an object containing:
+		- number of sheets to print
+		- number of labels to print
+
+
+ -->

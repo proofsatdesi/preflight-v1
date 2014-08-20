@@ -1,0 +1,114 @@
+.nav, .pagination, .carousel a, .glyphicon-remove { cursor: pointer; }
+/** {
+	outline: 1px solid red;
+}*/
+body {
+	padding: 3rem 0;
+}
+/*form {
+    margin: 3rem 0;
+}*/
+input {
+	margin-bottom: 3rem;
+}
+.big {
+	font-size: 8rem;
+	position: relative;
+	top: -3rem;
+}
+.medium {
+	font-size: 4rem;
+}
+.light {
+	font-weight: lighter;
+}
+.glyphicon {
+    margin-left: 1rem;
+}
+.rush-flag .glyphicon {
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+.user-name {
+		color: lightgrey;
+	}
+.status-headline {
+	margin: 3rem 0;
+	color: navy;
+	background-color: none;
+	border: none;
+	padding: .2em .6em .3em;
+}
+.rush-flag {
+	font-size: 4rem;
+	font-weight: bold;
+	line-height: 1;
+	color: #ffffff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em;
+	background-color: #d9534f;
+	padding: .2em .6em .3em;
+	margin-bottom: 3rem;
+	margin-top: 3rem;
+}
+.print-only {
+	display: none;
+}
+.cursor {
+	cursor: pointer;
+}
+/** {
+	outline: 1px red solid;
+}*/
+
+@media print {
+	.print-only {
+		display: inline;
+	}
+	.rush-flag {
+		background-color: #d9534f;
+		color: white;
+	}
+	.form-control {
+		border: 0 solid white;
+		width: auto;
+	}
+	button {
+		visibility: hidden;
+	}
+	.glyphicon-remove {
+		visibility: hidden;
+	}
+	.input-lg {
+		font-weight: bold;
+		font-size: 4rem;
+		color: black;
+		height: auto;
+		padding: 0;
+	}
+	.user-name {
+		color: lightgrey;
+	}
+	.job-number {
+		font-size: 8rem;
+	}
+		
+}
+
+/*
+.label {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  font-weight: bold;
+  line-height: 1;
+  color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+}
+*/
+/*background-color: #d9534f;*/
