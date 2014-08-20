@@ -1659,6 +1659,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 					&& !isCTMHandset(runOb)
 					&& !requiresDCHLPaperAndSpecialPlastic(runOb)
 					&& !runOb.material.match(/dchl/i)
+					&& !isPlastic(runOb)
 					&& !runOb.production_notes.match(new RegExp(escapeRegExp(stocksAndDescriptions["doubleTreeStock"]), "i"))
 					) {
 					return {footnote: [stocksAndDescriptions["doubleTreeStock"]]};
