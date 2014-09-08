@@ -1064,6 +1064,20 @@ angular.module('preflightTaskList', ['partnumberList'])
 		}
 	},
 	{
+		statuses: ['work', 'proof', 'appr', 'prod'],
+		description: "If job is for Inn-Phone, check and make sure approval came from Inn-Phone and not customer",
+		test: function(jobOb) {
+			if (jobOb.proof_company.match(/inn-phone/i) || jobOb.proof_company.match(/inn\s*phone/i)) {
+				return [{
+					type: "warning",
+					msg: "Make sure this job was approved by someone at Inn-Phone",
+					footnote: ["Don't go to production if the approval is directly from the customer, contact Inn-Phone instead."]
+				}];
+			}
+
+		}
+	},
+	{
 		statuses: ['appr', 'prod'],
 		description: "If job is for DCI, check and make sure approval came from DCI and not customer",
 		test: function(jobOb) {
