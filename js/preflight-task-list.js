@@ -1516,8 +1516,8 @@ angular.module('preflightTaskList', ['partnumberList'])
 			if (jobOb.prop_name.match(/crowne/i)) {
 				return [{
 					type: "info",
-					msg: "All Crowne Plaza runs need to separate correctly with the following colors:",
-					footnote: ["whatever correct colors are"]
+					msg: "All Crowne Plaza runs need to be tested for correct separation.  All Artwork should be in one of these colors:",
+					footnote: ["PANTONE 228C / PANTONE 226C"]
 					// TODO update correct crowne colors
 				}];
 			}
