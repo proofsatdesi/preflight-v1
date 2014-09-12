@@ -1690,12 +1690,17 @@ angular.module('preflightTaskList', ['partnumberList'])
 					&& !runOb.material.match(/cougar/i)
 					&& !runOb.material.match(/Mohawk/i)
 					&& !runOb.material.match(/cover/i)
+					&& !runOb.material.match(/LBZ658500/i)
+					&& !runOb.material.match(/label\s*stock/i)
+					&& !runOb.material.match(/vinyl/i)
 					&& !runOb.material.match(new RegExp(escapeRegExp("80#"), "i"))
 					&& !runOb.production_notes.match(new RegExp(escapeRegExp(stocksAndDescriptions["white"]), "i"))
 					) {
 					return {footnote: [stocksAndDescriptions["white"]]};
 
 				} else if (runOb.material.match(/vinyl/i)
+					|| runOb.material.match(/LBZ658500/i)
+					|| runOb.material.match(/label\s*stock/i)
 					&& !jobIsDoubleTree(jobOb)
 					&& !isHoliday(jobOb)
 					&& !requiresDCHLPaperAndSpecialPlastic(runOb)
