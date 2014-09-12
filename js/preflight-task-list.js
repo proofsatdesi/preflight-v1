@@ -1698,9 +1698,9 @@ angular.module('preflightTaskList', ['partnumberList'])
 					) {
 					return {footnote: [stocksAndDescriptions["white"]]};
 
-				} else if (runOb.material.match(/vinyl/i)
-					|| runOb.material.match(/LBZ658500/i)
-					|| runOb.material.match(/label\s*stock/i)
+				} else if ((runOb.material.match(/vinyl/i)
+									|| runOb.material.match(/LBZ658500/i)
+									|| runOb.material.match(/label\s*stock/i))
 					&& !jobIsDoubleTree(jobOb)
 					&& !isHoliday(jobOb)
 					&& !requiresDCHLPaperAndSpecialPlastic(runOb)
