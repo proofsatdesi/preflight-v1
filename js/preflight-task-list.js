@@ -1663,6 +1663,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 		test: function(jobOb) {
 			var interrogative = function(runOb) {
 				if (runOb.material.match(/cougar/i)
+					&& !is400000Part(runOb)
 					&& !runOb.material.match(/100/)
 					&& !runOb.material.match(/dchl/i)
 					&& !requiresDCHLPaperAndSpecialPlastic(runOb)
@@ -1672,6 +1673,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 					return {footnote: [stocksAndDescriptions["cougar"]]};
 
 				} else if (jobIsDoubleTree(jobOb)
+					&& !is400000Part(runOb)
 					&& !isCTMHandset(runOb)
 					&& !requiresDCHLPaperAndSpecialPlastic(runOb)
 					&& !runOb.material.match(/dchl/i)
@@ -1703,6 +1705,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 									|| runOb.material.match(/LBZ658500/i)
 									|| runOb.material.match(/label\s*stock/i))
 					&& !jobIsDoubleTree(jobOb)
+					&& !is400000Part(runOb)
 					&& !isHoliday(jobOb)
 					&& !requiresDCHLPaperAndSpecialPlastic(runOb)
 					&& !runOb.material.match(/dchl/i)
@@ -1716,6 +1719,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 					&& !runOb.material.match(/white/i) //needed because otherwise a "white with cream flood" would trigger cream stock
 					&& !jobIsDoubleTree(jobOb)
 					&& !isHoliday(jobOb)
+					&& !is400000Part(runOb)
 					&& !requiresDCHLPaperAndSpecialPlastic(runOb)
 					&& !runOb.material.match(/dchl/i)
 					&& !isCTMHandset(runOb)
@@ -1728,6 +1732,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 					&& !runOb.material.match(/white/i) //needed because otherwise a "white with pewter flood" would trigger cream stock
 					&& !jobIsDoubleTree(jobOb)
 					&& !isHoliday(jobOb)
+					&& !is400000Part(runOb)
 					&& !requiresDCHLPaperAndSpecialPlastic(runOb)
 					&& !runOb.material.match(/dchl/i)
 					&& !isCTMHandset(runOb)
@@ -1736,7 +1741,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 					) {
 					return {footnote: [stocksAndDescriptions["pewter"]]};
 
-				}
+				} 
 				
 			};
 
