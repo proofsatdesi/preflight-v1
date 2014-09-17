@@ -1397,12 +1397,16 @@ angular.module('preflightTaskList', ['partnumberList'])
 
 			var interrogative = function(runOb) {
 				if (is400000Part(runOb) && mightReferenceDCHLPart(runOb)) {
-					return {footnote: ["see these detailed instructions..."]};
+					return {footnote: ["• make sure that each DCHL part number is a separate run in Job Tracker using the part number 400000 with the quantity being the number of packages ordered",
+									   "________________________________________________________",
+									   "• Change the description of the part number to the actual DCHL part number (e.g. 14000). If a non-standard DCHL, use the part number 400080.",
+									   "_______________________________________________________",
+									   "• Make a note on the run ticket for finishing/packaging to label the finished package(s) using the same labels used for plastics (located on the rolling laser cart)."]};
 					// TODO put in the appropriate custom DCHL run instructions
 				}
 			};
 
-			return returnMessages(jobOb.runs, interrogative, "info", "is a custom DCHL run");
+			return returnMessages(jobOb.runs, interrogative, "info", "if this is a custom DCHL run");
 			
 		}
 	},
@@ -2118,6 +2122,7 @@ var dieList = {
 };
 // TODO write test so that if there is a 9600 handset run, AND a 9600 run, see if you can combine them
 var partList = {
+	"C14650": "554704",
 	"C14595": "5888",
 	"C14940": "566104",
 	"C15505": "608804",
