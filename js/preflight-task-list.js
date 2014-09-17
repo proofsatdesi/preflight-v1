@@ -2118,6 +2118,7 @@ var dieList = {
 };
 // TODO write test so that if there is a 9600 handset run, AND a 9600 run, see if you can combine them
 var partList = {
+	"C14595": "5888",
 	"C14940": "566104",
 	"C15505": "608804",
 	"323591": "608804",
