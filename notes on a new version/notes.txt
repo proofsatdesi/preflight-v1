@@ -1,0 +1,3 @@
+don't go OO for part number data storage.
+
+better to have different arrays, and maps with certain data that can be queried with a simple function.  OO ends up being to hard to understand be consistent with when making adhoc stuff to run new tests that come up.  i would rather treat each property as a serparate data store that i can query.  sounds messy, but ends up being easier.  keeps data from knowing too much about other data

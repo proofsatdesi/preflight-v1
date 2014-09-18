@@ -101,6 +101,8 @@ var isRarelyModified = function(runOb) {
 		|| runOb.part_number.match(/C14005/)
 		|| runOb.part_number.match(/965591HDKIT-N/)
 		|| runOb.part_number.match(/965591IPHDKIT/i)
+		|| runOb.part_number.match(/80012/)
+		|| runOb.part_number.match(/C16490/)
 		|| runOb.part_number.match(/C16095/));
 };
 
