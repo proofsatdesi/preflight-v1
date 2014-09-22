@@ -81,6 +81,7 @@ var isRarelyModified = function(runOb) {
 		|| runOb.description.match(/mws/i)
 		|| runOb.part_number.match(/80002/)
 		|| runOb.part_number.match(/C15455/)
+		|| runOb.part_number.match(/nug31039/)
 		|| runOb.part_number.match(/80102/)
 		|| runOb.part_number.match(/C16490/)
 		|| runOb.part_number.match(/C15245/)
