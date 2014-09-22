@@ -1588,7 +1588,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 
 		}
 	},
-	{ //here
+	{
 		statuses: ['setup', 'work', 'proof', 'appr', 'prod'],
 		description: "If any runs are of the type with the strange VTech china dies, we need them to be on DCHL paper, not regular custom label paper (for stock thickness and phone fit reasons)",
 		test: function(jobOb) {
@@ -1596,12 +1596,37 @@ angular.module('preflightTaskList', ['partnumberList'])
 				if (!runOb.material.match(/dchl/i) 
 					&& requiresDCHLPaperAndSpecialPlastic(runOb)
 					&& !runOb.production_notes.match(/dchl/i)) {
-					return {footnote: ["the DCHL version must be referenced in the material field and in the production notes, see Mellissa with questions"]};
+					return {footnote: [
+						"• the DCHL version must be referenced in the material field and in the production notes, see Mellissa with questions", 
+						"• White becomes DCHL White",
+						"• Cream becomes DCHL Cream",
+						"• Pewter becomes DCHL Pewter",
+						"• 80# Cougar becomes DCHL White",
+						"• DoubleTree Stock becomes DCHL White",
+					]};
 				}
 				
 			};
 
 			return returnMessages(jobOb.runs, interrogative, "danger", "you must use the DCHL version of our paper stocks for this model");
+		}
+	},
+	{
+		statuses: ['setup', 'work', 'proof', 'appr', 'prod'],
+		description: "If this run is being printed on DCHL paper, print it to the vinyl hot folder",
+		test: function(jobOb) {
+			var interrogative = function(runOb) {
+				if (!runOb.material.match(/dchl/i) 
+					&& requiresDCHLPaperAndSpecialPlastic(runOb)
+					&& !runOb.production_notes.match(/dchl/i)) {
+					return {footnote: [
+						"• This run will be printed to the **VINYL** hot folder"
+					]};
+				}
+				
+			};
+
+			return returnMessages(jobOb.runs, interrogative, "info", "this run require special hot folder printing");
 		}
 	},
 	{
