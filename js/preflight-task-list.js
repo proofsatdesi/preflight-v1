@@ -507,6 +507,10 @@ var jobIsDoubleTree = function(jobOb) {
 	return jobOb.prop_name.search(/double\s*tree/i) > -1;
 };
 
+var jobIsBestWestern = function(jobOb) {
+	return jobOb.prop_name.search(/best\s*western/i) > -1;
+};
+
 
 
 var stocksAndDescriptions = {
@@ -1568,6 +1572,19 @@ angular.module('preflightTaskList', ['partnumberList'])
 			};
 
 			return returnMessages(jobOb.runs, interrogative, "danger", "Add the following to production notes:");
+		}
+	},
+	{ 
+		statuses: ['proof', 'appr', 'prod'],
+		/*left off here*/
+		description: "If it's a Best Western job, check for proper brand capitalization",
+		test: function(jobOb) {
+			if (jobIsBestWestern(jobOb))
+				return [{
+					type: "info",
+					msg: "check to see that BEST WESTERN is capitalized, if written on the faceplate"
+				}];
+
 		}
 	},
 	{ //here
