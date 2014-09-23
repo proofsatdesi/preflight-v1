@@ -1237,7 +1237,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 		test: function(jobOb) {
 
 			var interrogative = function(runOb) {
-				return (isHoliday(jobOb) && isFaceplate(runOb) && !has80lbsCougarPaper(runOb));
+				return (isHoliday(jobOb) && isFaceplate(runOb) && !has80lbsCougarPaper(runOb) && !requiresDCHLPaperAndSpecialPlastic(runOb));
 			};
 
 			return returnMessages(jobOb.runs, interrogative, "danger", "needs to have White 80# Cougar paper, per IHG standards.");				
@@ -2167,6 +2167,9 @@ var dieList = {
 };
 // TODO write test so that if there is a 9600 handset run, AND a 9600 run, see if you can combine them
 var partList = {
+	"C14010": "5346",
+	"C14125": "5319",
+	"C14520": "536905_!",
 	"IPN96359": "579116",
 	"963591IP": "599101",
 	"C14650": "554704",
