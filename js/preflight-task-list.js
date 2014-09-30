@@ -695,7 +695,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 		description: "remind about Vinyl Cream background floods",
 		test: function(jobOb) {
 			var interrogative = function(run) {
-				return (run.material.match(/vinyl/i) && run.material.match(/cream/i));
+				return ((run.material.match(/vinyl/i) || isCTMHandset(run)) && run.material.match(/cream/i));
 			};
 
 			return returnMessages(jobOb.runs, interrogative, "info", "Make sure to set Vinyl Cream BG flood: C:01, M:01, Y:19, K:00")
@@ -706,10 +706,10 @@ angular.module('preflightTaskList', ['partnumberList'])
 		description: "remind about Vinyl Pewter background floods",
 		test: function(jobOb) {
 			var interrogative = function(run) {
-				return (run.material.match(/vinyl/i) && run.material.match(/pewter/i));
+				return ((run.material.match(/vinyl/i) || isCTMHandset(run)) && run.material.match(/pewter/i));
 			};
 
-			return returnMessages(jobOb.runs, interrogative, "info", "Make sure to set Vinyl Pewter BG flood: K: 11")
+			return returnMessages(jobOb.runs, interrogative, "info", "This run will probably require a BG flood of: K: 11")
 		}
 	},
 	{
@@ -1982,7 +1982,11 @@ angular.module('preflightTaskList', ['partnumberList'])
 			var interrogative = function(runOb) {
 				if (isFaceplate(runOb) || isRateCard(runOb) || isTrayRemoval(runOb)) {
 					var sheetsLabelsOb = calcSheetsAndLabels(runOb);
-					return {footnote: ["sheets: " + sheetsLabelsOb.sheets + ", and labels: " + sheetsLabelsOb.labels]};
+					if (isCTMHandset(runOb)) {
+						return {footnote: ["sheets: " + sheetsLabelsOb.sheets + ", and labels: " + sheetsLabelsOb.labels + "********* and prints to the Vinyl Hot Folder *******"]};
+					} else {
+						return {footnote: ["sheets: " + sheetsLabelsOb.sheets + ", and labels: " + sheetsLabelsOb.labels]};
+					}
 				}
 				
 			};
