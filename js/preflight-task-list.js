@@ -80,6 +80,9 @@ var isRarelyModified = function(runOb) {
 		|| runOb.description.match(/trim/i)
 		|| runOb.description.match(/mws/i)
 		|| runOb.part_number.match(/80002/)
+		|| runOb.part_number.match(/C16590/)
+		|| runOb.part_number.match(/341591/)
+		|| runOb.part_number.match(/C16520/)
 		|| runOb.part_number.match(/C15455/)
 		|| runOb.part_number.match(/nug31039/)
 		|| runOb.part_number.match(/80102/)
@@ -2170,11 +2173,16 @@ var dieList = {
 	"5774": twoUpReg,
 	"5364": twoUpReg,
 	"5713": oneUpReg,
-	"5742": twoUpReg
+	"5742": twoUpReg,
+	"6020": twoUpReg,
+	"5862": twoUpReg
 	// "6102": unsure of configob
 };
 // TODO write test so that if there is a 9600 handset run, AND a 9600 run, see if you can combine them
 var partList = {
+	"C15220 (Variant B)": "586201",
+	"C14105": "532200",
+	"C16540": "578710",
 	"C15620": "578501",
 	"C14370": "537503",
 	"C15065": "5742",
