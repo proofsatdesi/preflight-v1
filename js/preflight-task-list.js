@@ -15,6 +15,10 @@ var isTabbed = function(runOb) {
 	return (runOb.description.match(/tab/i) !== null);
 };
 
+var isSheraton = function(jobOb) {
+	return !!jobOb.prop_name.match(/sheraton/i)
+};
+
 var isPlasticFaceplate = function(runOb) {
 	// mainly mimaki runs
 	var hasMimakiInMaterial = !!runOb.material.match(/mimaki/i) || !!runOb.material.match(/mamaki/i) || !!runOb.material.match(/memaki/i);
@@ -88,6 +92,8 @@ var isRarelyModified = function(runOb) {
 		|| runOb.description.match(/mwb/i)
 		|| runOb.description.match(/trim/i)
 		|| runOb.description.match(/mws/i)
+		|| runOb.part_number.match(/C15435/)
+		|| runOb.part_number.match(/C14315/)
 		|| runOb.part_number.match(/80002/)
 		|| runOb.part_number.match(/C14160/i)
 		|| runOb.part_number.match(/C16590/)
@@ -633,7 +639,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 		statuses: ['proof', 'appr', 'prod', 'paid'],
 		description: "remind to check icons",
 		test: function(jobOb) {
-			if (jobHasFaceplateRuns(jobOb) && !isHampton(jobOb) && jobHasRunWithSpeedKeys(jobOb))
+			if (jobHasFaceplateRuns(jobOb) && !isHampton(jobOb) && !isSheraton (jobOb) && jobHasRunWithSpeedKeys(jobOb))
 				return [{
 					type: "info",
 					msg: "Make sure each icon makes sense with its text label."
@@ -2197,6 +2203,7 @@ var dieList = {
 };
 // TODO write test so that if there is a 9600 handset run, AND a 9600 run, see if you can combine them
 var partList = {
+	"C14680": "554709",
 	"C15545" : "598001",
 	"C17380": "613517",
 	"C16050": "536907_!",
