@@ -1,3 +1,4 @@
+
 // TODO refactor all functions to NOT list a footnote argument....
 // footnote is something that can returned by the interrogative, in the form of an array of strings.
 
@@ -12,6 +13,14 @@ var is9600Handset = function(runOb) {
 
 var isTabbed = function(runOb) {
 	return (runOb.description.match(/tab/i) !== null);
+};
+
+var isPlasticFaceplate = function(runOb) {
+	// mainly mimaki runs
+	var hasMimakiInMaterial = !!runOb.material.match(/mimaki/i) || !!runOb.material.match(/mamaki/i) || !!runOb.material.match(/memaki/i);
+	var hasMimakiInProductionNotes = !!runOb.production_notes.match(/mimaki/i) || !!runOb.production_notes.match(/mamaki/i) || !!runOb.production_notes.match(/memaki/i);
+	return (hasMimakiInMaterial || hasMimakiInProductionNotes);
+
 };
 
 /*
@@ -1717,6 +1726,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 		test: function(jobOb) {
 			var interrogative = function(runOb) {
 				if (runOb.material.match(/cougar/i)
+					&& !isPlasticFaceplate(runOb)
 					&& !is400000Part(runOb)
 					&& !runOb.material.match(/100/)
 					&& !runOb.material.match(/dchl/i)
@@ -1727,6 +1737,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 					return {footnote: [stocksAndDescriptions["cougar"]]};
 
 				} else if (jobIsDoubleTree(jobOb)
+					&& !isPlasticFaceplate(runOb)
 					&& !is400000Part(runOb)
 					&& !isCTMHandset(runOb)
 					&& !requiresDCHLPaperAndSpecialPlastic(runOb)
@@ -1737,6 +1748,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 					return {footnote: [stocksAndDescriptions["doubleTreeStock"]]};
 
 				} else if (runOb.material.match(/white/i)
+					&& !isPlasticFaceplate(runOb)
 					&& !jobIsDoubleTree(jobOb)
 					&& !isHoliday(jobOb)
 					&& !isCTMHandset(runOb)
@@ -1758,6 +1770,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 				} else if ((runOb.material.match(/vinyl/i)
 									|| runOb.material.match(/LBZ658500/i)
 									|| runOb.material.match(/label\s*stock/i))
+					&& !isPlasticFaceplate(runOb)
 					&& !jobIsDoubleTree(jobOb)
 					&& !is400000Part(runOb)
 					&& !isHoliday(jobOb)
@@ -1770,6 +1783,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 					return {footnote: [stocksAndDescriptions["twoPartAdhesive"]]};
 
 				} else if (runOb.material.match(/cream/i)
+					&& !isPlasticFaceplate(runOb)
 					&& !runOb.material.match(/white/i) //needed because otherwise a "white with cream flood" would trigger cream stock
 					&& !jobIsDoubleTree(jobOb)
 					&& !isHoliday(jobOb)
@@ -1783,6 +1797,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 					return {footnote: [stocksAndDescriptions["cream"]]};
 
 				} else if (runOb.material.match(/pewter/i)
+					&& !isPlasticFaceplate(runOb)
 					&& !runOb.material.match(/white/i) //needed because otherwise a "white with pewter flood" would trigger cream stock
 					&& !jobIsDoubleTree(jobOb)
 					&& !isHoliday(jobOb)
