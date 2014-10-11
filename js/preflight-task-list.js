@@ -27,6 +27,7 @@ var isPlasticFaceplate = function(runOb) {
 
 };
 
+
 /*
 The meaning of this function; that special paper and plastic layouts are required to fit an unusual phone
 mold being used by VTech, now applies to more thatn just the A1210.
@@ -1274,6 +1275,18 @@ angular.module('preflightTaskList', ['partnumberList'])
 			};
 
 			return returnMessages(jobOb.runs, interrogative, "danger", "needs to have White paper, per Courtyard standards.");
+		}
+	},
+	{
+		statuses: ['work', 'proof', 'appr', 'prod'],
+		description: "if a run is to be produced as a plastic faceplate, check for proper production notes",
+		test: function(jobOb) {
+
+			var interrogative = function(runOb) {
+				return !!(isPlasticFaceplate(runOb) && !runOb.production_notes.match(/Solatuf .02" V\/G acrylic/i) && !runOb.production_notes.match(/Print 2nd surface, gloss side up/i));
+			};
+
+			return returnMessages(jobOb.runs, interrogative, "danger", "needs to list the following in production notes: 'Solatuf .02 V/G acrylic, Print 2nd surface, gloss side up'");
 		}
 	},
 	{
