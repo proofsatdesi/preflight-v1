@@ -19,6 +19,95 @@ var isSheraton = function(jobOb) {
 	return !!jobOb.prop_name.match(/sheraton/i)
 };
 
+var usesDie5931 = function(runOb) {
+	return !!(	runOb.description.match(/5931/i)
+			|| runOb.description.match(/HC103_2008/i)
+			|| runOb.description.match(/HC111_2008/i)
+			|| runOb.description.match(/HC121_2008/i)
+			|| runOb.description.match(/HC142_2008/i)
+			|| runOb.description.match(/HC113_2008/i)
+			|| runOb.description.match(/HC148/i)
+			|| runOb.description.match(/HC119/i)
+			|| runOb.description.match(/HC149/i)
+			|| runOb.description.match(/HC145/i)
+			|| runOb.description.match(/HC116/i)
+			|| runOb.description.match(/HC126/i)
+			|| runOb.description.match(/HC146/i)
+			|| runOb.description.match(/HC107/i)
+			|| runOb.description.match(/HC125/i)
+			|| runOb.description.match(/HC147/i)
+			|| runOb.description.match(/HC118/i)
+			|| runOb.description.match(/HC144/i)
+			|| runOb.description.match(/HC803/i)
+			|| runOb.description.match(/HC804/i)
+			|| runOb.description.match(/HC805/i)
+			|| runOb.description.match(/HC103/i)
+			|| runOb.description.match(/HC123/i)
+			|| runOb.description.match(/HC131/i)
+			|| runOb.description.match(/HC141/i)
+			|| runOb.description.match(/HC112/i)
+			|| runOb.description.match(/HC122/i)
+			|| runOb.description.match(/HC132/i)
+			|| runOb.description.match(/HC1411/i)
+			|| runOb.description.match(/HC810/i)
+			|| runOb.description.match(/HC822/i)
+			|| runOb.description.match(/HC817/i)
+			|| runOb.description.match(/HC818/i)
+			|| runOb.description.match(/HC819/i)
+			|| runOb.description.match(/HC820/i)
+			|| runOb.description.match(/HC823/i)
+			|| runOb.description.match(/HC112_2008/i)
+			|| runOb.description.match(/HC102_2008/i)
+			|| runOb.description.match(/HC141_2008/i)
+			|| runOb.description.match(/HC122_2008/i)
+			|| runOb.description.match(/HC129/i)
+			|| runOb.description.match(/HC115/i)
+			|| runOb.description.match(/HC106/i)
+			|| runOb.description.match(/HC117/i)
+			|| runOb.description.match(/HC127/i)
+			|| runOb.description.match(/HC133_2008/i)
+			|| runOb.description.match(/HC108/i)
+			|| runOb.description.match(/HC114/i)
+			|| runOb.description.match(/HC124/i)
+			|| runOb.description.match(/HC105/i)
+			|| runOb.description.match(/HC801/i)
+			|| runOb.description.match(/HC802/i)
+			|| runOb.description.match(/HC143_2008/i)
+			|| runOb.description.match(/HC143/i)
+			|| runOb.description.match(/HC133/i)
+			|| runOb.description.match(/HC101_2008/i)
+			|| runOb.description.match(/HC128/i)
+			|| runOb.description.match(/HC102/i)
+			|| runOb.description.match(/HC123_2008/i)
+			|| runOb.description.match(/HC142/i)
+			|| runOb.description.match(/HC113/i)
+			|| runOb.description.match(/HC111/i)
+			|| runOb.description.match(/HC121/i)
+			|| runOb.description.match(/HC1011/i)
+			|| runOb.description.match(/HC1211/i)
+			|| runOb.description.match(/HC807/i)
+			|| runOb.description.match(/HC808/i)
+			|| runOb.description.match(/HC809/i)
+			|| runOb.description.match(/HC1010/i)
+			|| runOb.description.match(/HC1210/i)
+			|| runOb.description.match(/HC1410/i)
+			|| runOb.description.match(/400090/i)
+			|| runOb.description.match(/HC1110/i)
+			|| runOb.description.match(/HC821/i)
+			|| runOb.description.match(/HC109/i)
+			|| runOb.description.match(/HC815/i)
+			|| runOb.description.match(/HC816/i)
+			|| runOb.description.match(/HC812/i)
+			|| runOb.description.match(/HC101/i)
+			|| runOb.description.match(/HC811/i)
+			|| runOb.description.match(/HC104/i)
+			|| runOb.description.match(/HC1111/i)
+			|| runOb.description.match(/HC806/i)
+			|| runOb.description.match(/400620/i)
+			|| runOb.description.match(/HC814/i)
+			|| runOb.description.match(/HC813/i));
+};
+
 var isPlasticFaceplate = function(runOb) {
 	// mainly mimaki runs
 	var hasMimakiInMaterial = !!runOb.material.match(/mimaki/i) || !!runOb.material.match(/mamaki/i) || !!runOb.material.match(/memaki/i);
@@ -1428,6 +1517,21 @@ angular.module('preflightTaskList', ['partnumberList'])
 			};
 
 			return returnMessages(jobOb.runs, interrogative, "danger", "invalid reference to plastic part");
+
+		}
+
+	},
+	{ // HERE
+		statuses: ['appr', 'prod'],
+		description: "if run references die 5931, have user check dimensions of file before printing",
+		test: function(jobOb) {
+			var interrogative = function(runOb) {
+				if (usesDie5931(runOb)) {
+					return {footnote: ["check art file and make dimensions are 7\" x 10\""]};
+				}
+			};
+
+			return returnMessages(jobOb.runs, interrogative, "info", "It looks lie Die 5931 is being used, and that die has changed it's dimensions over time:");
 
 		}
 
