@@ -183,6 +183,8 @@ var isRarelyModified = function(runOb) {
 		|| runOb.description.match(/trim/i)
 		|| runOb.description.match(/mws/i)
 		|| runOb.part_number.match(/C15435/)
+		|| runOb.part_number.match(/90102/)
+		|| runOb.part_number.match(/C10127/)
 		|| runOb.part_number.match(/C14315/)
 		|| runOb.part_number.match(/80002/)
 		|| runOb.part_number.match(/C14160/i)
@@ -1448,7 +1450,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 		}
 	},
 	{
-		statuses: ['work', 'proof', 'appr', 'prod', 'paid', 'ship'],
+		statuses: ['work', 'proof', 'appr', 'prod', 'paid', 'ship', 'ready'],
 		description: "If job has faceplate runs and does NOT list modifications, check to make sure proof is not modified.",
 		test: function(jobOb) {
 			// here
@@ -1921,7 +1923,8 @@ angular.module('preflightTaskList', ['partnumberList'])
 					) {
 					return {footnote: [stocksAndDescriptions["cream"]]};
 
-				} else if (runOb.material.match(/pewter/i)
+				// } else if (runOb.material.match(/pewter/i)
+				} else if (hasPewterPaper(runOb)
 					&& !isPlasticFaceplate(runOb)
 					&& !runOb.material.match(/white/i) //needed because otherwise a "white with pewter flood" would trigger cream stock
 					&& !jobIsDoubleTree(jobOb)
@@ -2321,6 +2324,9 @@ var dieList = {
 };
 // TODO write test so that if there is a 9600 handset run, AND a 9600 run, see if you can combine them
 var partList = {
+	"C15665": "599102",
+	"IPN967491DRU": "576817",
+	"C10127": "502302",
 	"C14680": "554709",
 	"C15545" : "598001",
 	"C17380": "613517",
