@@ -2319,11 +2319,14 @@ var dieList = {
 	"5742": twoUpReg,
 	"6020": twoUpReg,
 	"5862": twoUpReg,
-	"6057": twoUpReg
+	"6057": twoUpReg,
+	"5325": twoUpReg
 	// "6102": unsure of configob
 };
 // TODO write test so that if there is a 9600 handset run, AND a 9600 run, see if you can combine them
 var partList = {
+	"C14635": "554701",
+	"C15690": "599103",
 	"C15665": "599102",
 	"IPN967491DRU": "576817",
 	"C10127": "502302",
