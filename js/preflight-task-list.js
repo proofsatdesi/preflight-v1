@@ -182,6 +182,7 @@ var isRarelyModified = function(runOb) {
 		|| runOb.description.match(/mwb/i)
 		|| runOb.description.match(/trim/i)
 		|| runOb.description.match(/mws/i)
+		|| runOb.part_number.match(/IPN330091STW/i)
 		|| runOb.part_number.match(/C15435/)
 		|| runOb.part_number.match(/90102/)
 		|| runOb.part_number.match(/C10127/)
@@ -1875,6 +1876,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 					return {footnote: [stocksAndDescriptions["doubleTreeStock"]]};
 
 				} else if (runOb.material.match(/white/i)
+					&& !runOb.material.match(/label\s*stock/i)
 					&& !isPlasticFaceplate(runOb)
 					&& !jobIsDoubleTree(jobOb)
 					&& !isHoliday(jobOb)
@@ -1910,6 +1912,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 					return {footnote: [stocksAndDescriptions["twoPartAdhesive"]]};
 
 				} else if (runOb.material.match(/cream/i)
+					&& !runOb.material.match(/label\s*stock/i)
 					&& !isPlasticFaceplate(runOb)
 					&& !runOb.material.match(/white/i) //needed because otherwise a "white with cream flood" would trigger cream stock
 					&& !jobIsDoubleTree(jobOb)
@@ -1925,6 +1928,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 
 				// } else if (runOb.material.match(/pewter/i)
 				} else if (hasPewterPaper(runOb)
+					&& !runOb.material.match(/label\s*stock/i)
 					&& !isPlasticFaceplate(runOb)
 					&& !runOb.material.match(/white/i) //needed because otherwise a "white with pewter flood" would trigger cream stock
 					&& !jobIsDoubleTree(jobOb)
@@ -2320,11 +2324,17 @@ var dieList = {
 	"6020": twoUpReg,
 	"5862": twoUpReg,
 	"6057": twoUpReg,
-	"5325": twoUpReg
+	"5325": twoUpReg,
+	"5886": oneUpReg,
+	"5327": oneUpReg,
+	"5434": oneUpReg
 	// "6102": unsure of configob
 };
 // TODO write test so that if there is a 9600 handset run, AND a 9600 run, see if you can combine them
 var partList = {
+	"C13960": "5434",
+	"C14180": "532701",
+	"C15280": "588605",
 	"C14635": "554701",
 	"C15690": "599103",
 	"C15665": "599102",
