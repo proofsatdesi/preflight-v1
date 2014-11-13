@@ -936,6 +936,18 @@ angular.module('preflightTaskList', ['partnumberList'])
 			}
 		}
 	},
+	{
+		statuses: ['proof', 'appr', 'prod'],
+		description: "if job is for Hampton, have user make sure 12pm, not 12am",
+		test: function(jobOb) {
+			if (isHampton(jobOb) && (returnFaceplateRuns(jobOb).length > 0)) {
+				return [{
+					type: "info",
+					msg: "If checkout time contains 12, make sure it says PM, rather than AM"
+				}];
+			}
+		}
+	},
 	
 	{
 		statuses: ['proof', 'appr', 'prod'],
@@ -2327,11 +2339,14 @@ var dieList = {
 	"5325": twoUpReg,
 	"5886": oneUpReg,
 	"5327": oneUpReg,
-	"5434": oneUpReg
+	"5434": oneUpReg,
+	"5403": twoUpReg
 	// "6102": unsure of configob
 };
 // TODO write test so that if there is a 9600 handset run, AND a 9600 run, see if you can combine them
 var partList = {
+	"C13190": "5403",
+	"DIA65749": "531302",
 	"C13960": "5434",
 	"C14180": "532701",
 	"C15280": "588605",
