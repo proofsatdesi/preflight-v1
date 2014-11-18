@@ -134,7 +134,7 @@ var requiresDCHLPaperAndSpecialPlastic = function(runOb) {
 	window.console.log("its an A1210, or an A1410, or S1410, or an A1420, or S1420");
 	return (	    runOb.part_number.match(/C16160/i)
 				|| 	runOb.part_number.match(/C16270/i)
-				||	runOb.part_number.match(/C16590/i)
+				// ||	runOb.part_number.match(/C16590/i) // removed from this function by Taurea on 11/14/2014
 				||	runOb.part_number.match(/C16150/i)
 				||	runOb.part_number.match(/C16175/i)
 				||	runOb.part_number.match(/C16260/i)
@@ -183,6 +183,7 @@ var isRarelyModified = function(runOb) {
 		|| runOb.description.match(/trim/i)
 		|| runOb.description.match(/mws/i)
 		|| runOb.part_number.match(/IPN330091STW/i)
+		|| runOb.part_number.match(/98002/i)
 		|| runOb.part_number.match(/C15435/)
 		|| runOb.part_number.match(/90102/)
 		|| runOb.part_number.match(/C10127/)
@@ -2340,11 +2341,14 @@ var dieList = {
 	"5886": oneUpReg,
 	"5327": oneUpReg,
 	"5434": oneUpReg,
-	"5403": twoUpReg
+	"5403": twoUpReg,
+	"6098": twoUpReg
 	// "6102": unsure of configob
 };
 // TODO write test so that if there is a 9600 handset run, AND a 9600 run, see if you can combine them
 var partList = {
+	"C16500": "6098",
+	"C16560": "610302",
 	"C16805": "610412",
 	"C13190": "5403",
 	"DIA65749": "531302",
