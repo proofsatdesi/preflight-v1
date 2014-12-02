@@ -184,6 +184,8 @@ var isRarelyModified = function(runOb) {
 		|| runOb.description.match(/mws/i)
 		|| runOb.part_number.match(/IPN330091STW/i)
 		|| runOb.part_number.match(/98002/i)
+		|| runOb.part_number.match(/965591HDKIT/i)
+		|| runOb.part_number.match(/985591IPHDKIT/i)
 		|| runOb.part_number.match(/C15435/)
 		|| runOb.part_number.match(/90102/)
 		|| runOb.part_number.match(/C10127/)
@@ -657,6 +659,34 @@ angular.module('preflightTaskList', ['partnumberList'])
 					msg: "Job contains no runs."
 				}];
 			} 
+		}
+	},
+	{
+		statuses: ['work', 'proof', 'appr', 'prod', 'ready', 'ship', 'paid'],
+		description: "if run is a 400000, have user read through production notes",
+		test: function(jobOb) {
+
+			var interrogative = function(runOb) {
+				if (is400000Part(runOb)) {
+					return {footnote: [runOb.production_notes]};
+				}
+			};
+			
+			return returnMessages(jobOb.runs, interrogative, "info", "proofread through production notes (is it all correct?)");
+
+		}
+	},
+	{
+		statuses: ['work', 'proof', 'appr', 'prod', 'ready', 'ship', 'paid'],
+		description: "if DoubleTree job, make sure 'DoubleTree Stock' is present in material field",
+		test: function(jobOb) {
+
+			var interrogative = function(runOb) {
+				return (jobIsDoubleTree(jobOb) && !(runOb.material.match(/double\s*tree/i) || runOb.material.match(stocksAndDescriptions["doubleTreeStock"])) && isFaceplate(runOb));
+			};
+			
+			return returnMessages(jobOb.runs, interrogative, "danger", "probably add 'DoubleTree Stock' to the material field");
+
 		}
 	},
 	{
@@ -2347,6 +2377,8 @@ var dieList = {
 };
 // TODO write test so that if there is a 9600 handset run, AND a 9600 run, see if you can combine them
 var partList = {
+	'C14415': '537508',
+	'C14235': '5373',
 	"C16500": "6098",
 	"C16560": "610302",
 	"C16805": "610412",
