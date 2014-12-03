@@ -171,7 +171,8 @@ var is9600Base = function(runOb) {
 
 var jobHasRunWithSpeedKeys = function(jobOb) {
 	window.console.log(filterRuns(jobOb, isRarelyModified).length);
-	return (filterRuns(jobOb, isRarelyModified).length < jobOb.runs.length);
+
+	return (filterRuns(jobOb, isRarelyModified).length < returnFaceplateRuns(jobOb).length);
 };
 
 
@@ -190,6 +191,7 @@ var isRarelyModified = function(runOb) {
 		|| runOb.part_number.match(/90102/)
 		|| runOb.part_number.match(/C10127/)
 		|| runOb.part_number.match(/C14315/)
+		|| runOb.part_number.match(/80123/)
 		|| runOb.part_number.match(/80002/)
 		|| runOb.part_number.match(/C14160/i)
 		|| runOb.part_number.match(/C16590/)
@@ -217,6 +219,7 @@ var isRarelyModified = function(runOb) {
 		|| runOb.part_number.match(/C14000/)
 		|| runOb.part_number.match(/DIA65309/)
 		|| runOb.part_number.match(/C14005/)
+		|| runOb.part_number.match(/C14645/)
 		|| runOb.part_number.match(/965591HDKIT-N/)
 		|| runOb.part_number.match(/965591IPHDKIT/i)
 		|| runOb.part_number.match(/80012/)
@@ -775,7 +778,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 		}
 	},
 	{
-		statuses: ['proof', 'appr', 'prod', 'paid'],
+		statuses: ['proof', 'appr', 'prod', 'paid', 'ready'],
 		description: "remind to check icons",
 		test: function(jobOb) {
 			if (jobHasFaceplateRuns(jobOb) && !isHampton(jobOb) && !isSheraton (jobOb) && jobHasRunWithSpeedKeys(jobOb))
@@ -2391,6 +2394,8 @@ var dieList = {
 };
 // TODO write test so that if there is a 9600 handset run, AND a 9600 run, see if you can combine them
 var partList = {
+	'80123': '585212',
+	'C15550': '5983',
 	'C14415': '537508',
 	'C14235': '5373',
 	"C16500": "6098",
