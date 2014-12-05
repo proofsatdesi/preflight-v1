@@ -669,7 +669,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 		description: "if a ship date is mentioned in the property name (a common practice), have user make sure job is shipping on that date!",
 		test: function(jobOb) {
 
-			if (jobOb.prop_name.match(/(rush|ship|due|need|)\s*(\d+[\/\\\-\.]\d+|mon|tue|wed|thur|fri)/i)) {
+			if (jobOb.prop_name.match(/(rush|ship|due|need|)\s*(\d+[\/\\\-\.]\d+|monday|tuesday|wednesday|thursday|friday)/i)) {
 				return [{
 					type: "info",
 					msg: "There seems to be a ship date requested in the property name, are we meeting that request?",
