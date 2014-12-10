@@ -1941,6 +1941,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 					&& !isPlasticFaceplate(runOb)
 					&& !jobIsDoubleTree(jobOb)
 					&& !isHoliday(jobOb)
+					&& !isTrayRemoval(runOb)
 					&& !isCTMHandset(runOb)
 					&& !isVinyled(runOb)
 					&& !is400000Part(runOb)
@@ -2395,6 +2396,7 @@ var dieList = {
 };
 // TODO write test so that if there is a 9600 handset run, AND a 9600 run, see if you can combine them
 var partList = {
+	'331491IP-NEC': '598007',
 	'C15715': '599504',
 	'C14375': '537502',
 	'C14145': '5314',
