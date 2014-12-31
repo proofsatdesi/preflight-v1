@@ -1910,7 +1910,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 	// },
 // ------------------------------------------- here reworking paper checks into 1 test
 	{
-		statuses: ['proof', 'appr', 'prod'],
+		statuses: ['proof', 'appr', 'prod', 'ship'],
 		description: "check material field for known papers, and making sure correct corresponding stock description appears in production_notes",
 		test: function(jobOb) {
 			var interrogative = function(runOb) {
@@ -1941,6 +1941,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 					&& !isPlasticFaceplate(runOb)
 					&& !jobIsDoubleTree(jobOb)
 					&& !isHoliday(jobOb)
+					&& !runOb.material.match(/poly/i)
 					&& !isTrayRemoval(runOb)
 					&& !isCTMHandset(runOb)
 					&& !isVinyled(runOb)
@@ -1975,6 +1976,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 
 				} else if (runOb.material.match(/cream/i)
 					&& !runOb.material.match(/label\s*stock/i)
+					&& !runOb.material.match(/poly/i)
 					&& !isPlasticFaceplate(runOb)
 					&& !runOb.material.match(/white/i) //needed because otherwise a "white with cream flood" would trigger cream stock
 					&& !jobIsDoubleTree(jobOb)
@@ -1991,6 +1993,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 				// } else if (runOb.material.match(/pewter/i)
 				} else if (hasPewterPaper(runOb)
 					&& !runOb.material.match(/label\s*stock/i)
+					&& !runOb.material.match(/poly/i)
 					&& !isPlasticFaceplate(runOb)
 					&& !runOb.material.match(/white/i) //needed because otherwise a "white with pewter flood" would trigger cream stock
 					&& !jobIsDoubleTree(jobOb)
