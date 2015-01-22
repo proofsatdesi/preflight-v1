@@ -2305,7 +2305,7 @@ var dieList = {
 	"5782": twoUpReg, 
 	"5473": twoUpReg, 
 	"5324": twoUpReg, 
-	"5995": twoUpReg, 
+	"5995": oneUpReg, 
 	"5983": twoUpReg, 
 	"5980": twoUpReg, 
 	"5547": twoUpReg, 
