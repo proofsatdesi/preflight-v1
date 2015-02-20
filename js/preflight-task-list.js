@@ -110,7 +110,7 @@ var usesDie5931 = function(runOb) {
 
 var isPlasticFaceplate = function(runOb) {
 	// mainly mimaki runs
-	var hasMimakiInMaterial = !!runOb.material.match(/mimaki/i) || !!runOb.material.match(/mamaki/i) || !!runOb.material.match(/memaki/i);
+	var hasMimakiInMaterial = !!runOb.material.match(/mimaki/i) || !!runOb.material.match(/mamaki/i) || !!runOb.material.match(/memaki/i) || !!runOb.material.match(/Acrylic/i) || !!runOb.material.match(/Acrilic/i) || !!runOb.material.match(/Acryllic/i) || !!runOb.material.match(/Acrillic/i) || !!runOb.material.match(/Acyrlic/i);
 	var hasMimakiInProductionNotes = !!runOb.production_notes.match(/mimaki/i) || !!runOb.production_notes.match(/mamaki/i) || !!runOb.production_notes.match(/memaki/i);
 	return (hasMimakiInMaterial || hasMimakiInProductionNotes);
 
@@ -311,6 +311,10 @@ var hasRoomNumbers = function(runOb) {
 
 var hasColorsListed = function(runOb) {
 	return runOb.colors.match(/\S/);
+};
+
+var hasMaterialListed = function(runOb) {
+	return runOb.material.match(/\w\w+/i);
 };
 
 var isHGI = function(jobOb) {
@@ -1233,6 +1237,28 @@ angular.module('preflightTaskList', ['partnumberList'])
 		}
 	},
 	{
+		statuses: ['proof', 'appr', 'prod'],
+		description: "throw error if faceplate run has empty material field",
+		test: function(jobOb) {
+			var interrogative = function(runOb) {
+				return ((isFaceplate(runOb) || is400000Part(runOb)) && !hasMaterialListed(runOb));
+			};
+
+			return returnMessages(jobOb.runs, interrogative, "danger", "fill in the material field");
+		}
+	},
+	{
+		statuses: ['proof', 'appr', 'prod'],
+		description: "throw error if run lists Whtie instead of White (a common typo)",
+		test: function(jobOb) {
+			var interrogative = function(runOb) {
+				return (runOb.material.match(/whtie/i));
+			};
+
+			return returnMessages(jobOb.runs, interrogative, "danger", "'whtie' in material field is probably a typo");
+		}
+	},
+	{
 		statuses: ['work', 'proof', 'appr', 'prod'],
 		description: "If job is for Haiti Foundation of Hope, caution about indicia and return service info",
 		test: function(jobOb) {
@@ -1689,6 +1715,20 @@ angular.module('preflightTaskList', ['partnumberList'])
 	},
 	{
 		statuses: ['proof', 'appr', 'prod'],
+		description: "If the a run has a a quantity of faceplates that would allow for multiple sets of the room number list, check to see if that should happen",
+		test: function(jobOb) {
+			var interrogative = function(runOb) {
+				console.log("parseInt(runOb.quantity / runOb.room_numbers_qty)");
+				console.log(runOb.room_numbers_qty)
+				console.log(parseInt(runOb.quantity / runOb.room_numbers_qty));
+				return (parseInt(runOb.quantity / runOb.room_numbers_qty) > 1) && !runOb.production_notes.match(/#.*qty.*ok/i);
+			};
+
+			return returnMessages(jobOb.runs, interrogative, "info", "Should there be additional sets of room numbers printed? ...(the quantity would allow it)");
+		}
+	},
+	{
+		statuses: ['proof', 'appr', 'prod'],
 		description: "Is the job likely to have matrix scoring?  if so, warn user to include score marks on printouts.",
 		test: function(jobOb) {
 			var interrogative = function(runOb) {
@@ -1732,7 +1772,18 @@ angular.module('preflightTaskList', ['partnumberList'])
 					type: "info",
 					msg: "All Crowne Plaza runs need to be tested for correct separation.  All Artwork should be in one of these colors:",
 					footnote: ["PANTONE 228C / PANTONE 226C"]
-					// TODO update correct crowne colors
+				}];
+			}
+		}
+	},
+	{
+		statuses: ['proof', 'appr', 'prod'],
+		description: "If the job is for an InterContinental, make sure all runs use a consistent black.",
+		test: function(jobOb) {
+			if (jobOb.prop_name.match(/inter.*cont/i)) {
+				return [{
+					type: "info",
+					msg: "Make sure that all runs separate with a consistent black, not some elements in K, some elements in Black 7, etc."
 				}];
 			}
 		}
@@ -1910,7 +1961,7 @@ angular.module('preflightTaskList', ['partnumberList'])
 	// },
 // ------------------------------------------- here reworking paper checks into 1 test
 	{
-		statuses: ['proof', 'appr', 'prod', 'ship'],
+		statuses: ['proof', 'appr', 'prod', 'ship', 'paid'],
 		description: "check material field for known papers, and making sure correct corresponding stock description appears in production_notes",
 		test: function(jobOb) {
 			var interrogative = function(runOb) {
@@ -2394,11 +2445,24 @@ var dieList = {
 	"5327": oneUpReg,
 	"5434": oneUpReg,
 	"5403": twoUpReg,
-	"6098": twoUpReg
+	"6098": twoUpReg,
+	'5792' : twoUpReg,
+	'5329': oneUpReg,
+	'6258': twoUpReg
 	// "6102": unsure of configob
 };
 // TODO write test so that if there is a 9600 handset run, AND a 9600 run, see if you can combine them
 var partList = {
+	'C17635': '621856',
+	'C17725': '6258',
+	'C14200': '5329',
+	'C14365': '537510',
+	'C16117': '532401',
+	'C15160': '5792',
+	'C15660': '599101',
+	'C17655': '608560',
+	'C15960': '603608',
+	'C15725': '598005',
 	'331491IP-NEC': '598007',
 	'C15715': '599504',
 	'C14375': '537502',
